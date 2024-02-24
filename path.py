@@ -21,7 +21,7 @@ def print_maze(stdscr, maze, path=[]):
 
     for i, row in enumerate(maze):
         for j, value in enumerate(row):
-            stdscr.addstr(i, j*2, "X", GREEN)
+            stdscr.addstr(i, j*2, value, GREEN)
         else:
             stdscr.addstr(i, j*2, value, PURPLE)
 
@@ -72,11 +72,11 @@ def find_neighbors(maze, row, col):
 
     if row > 0: # Up
         neighbors.append((row - 1, col))
-    if row < len(maze): # Down
+    if row < len(maze) -1: # Down
         neighbors.append((row + 1, col))
     if col > 0: # Left
         neighbors.append((row, col - 1))
-    if col + 1 < len(maze[0]): # Right
+    if col < len(maze[0]) - 1: # Right
         neighbors.append((row, col + 1))
     return neighbors
 
@@ -86,7 +86,8 @@ def main(stdscr):
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_PURPLE, curses.COLOR_BLACK)
 
-    find_path(maze, stdscr)
+    path = find_path(maze, stdscr)
+    print_maze(stdscr, maze, path)
     stdscr.getch()
 
 wrapper(main)

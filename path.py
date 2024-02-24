@@ -23,6 +23,22 @@ def print_maze(stdscr, maze, path=[]):
         for j, value in enumerate(row):
             stdscr.addstr(i, j*2, value, GREEN)
 
+def find_start(maze, start):
+    for i, row in enumerate(maze):
+        for j, value in enumerate(row):
+            if value == start:
+                return (i, j)
+    return None
+
+def find_path(maze, stdscr):
+    start = "O"
+    end = "X"
+    start_pos = find_start(maze, start)
+
+    q = queue.Queue()
+    q.put((start_pos, [start_pos]))
+
+
 def main(stdscr):
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_PURPLE, curses.COLOR_BLACK)
